@@ -37,6 +37,57 @@
         };
     };
 
+    macros {
+        select_word_previous: select_word_previous {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LA(LS(LEFT_ARROW))>;
+            label = "SELECT_WORD_PREVIOUS";
+        };
+
+        select_word_next: select_word_next {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(LA(RIGHT_ARROW))>;
+            label = "SELECT_WORD_NEXT";
+        };
+
+        select_all_left: select_all_left {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(HOME)>;
+            label = "SELECT_ALL_LEFT";
+        };
+
+        select_all_right: select_all_right {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp LS(END)>;
+            label = "SELECT_ALL_RIGHT";
+        };
+
+        select_line: select_line {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp HOME &select_all_right>;
+            label = "SELECT_LINE";
+        };
+
+        insert_new_line: insert_new_line {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp UP_ARROW &new_line>;
+            label = "INSERT_NEW_LINE";
+        };
+
+        new_line: new_line {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp END &kp ENTER>;
+            label = "NEW_LINE";
+        };
+    };
+
     keymap {
         compatible = "zmk,keymap";
 
@@ -49,22 +100,22 @@
 
             display-name = "Base";
             bindings = <
-&kp TAB          &kp Q              &kp W              &kp F           &kp P  &kp B              &kp J      &kp L      &kp U                  &kp Y                &kp SEMICOLON              &kp DELETE
-&kp BACKSPACE    &kp A              &kp R              &kp S           &kp T  &kp G              &kp K      &kp N      &kp E                  &kp I                &kp O                      &kp SQT
-&kp LSHFT        &kp Z              &kp X              &kp C           &kp D  &kp V              &kp M      &kp H      &kp COMMA              &kp DOT              &kp FSLH                   &kp ENTER
-                                                       &kp LGUI        &mo 1  &kp SPACE          &kp RET    &mo 2      &kp RALT
+&kp TAB        &kp Q                &kp W            &kp F            &kp P  &kp B        &kp J    &kp L  &kp U            &kp Y    &kp SEMICOLON  &kp DELETE
+&kp BACKSPACE  &HML LEFT_CONTROL A  &HML LEFT_ALT R  &HML LEFT_WIN S  &kp T  &kp G        &kp K    &kp N  &HMR LEFT_GUI E  &kp I    &kp O          &kp SQT
+&kp LSHFT      &kp Z                &kp X            &kp C            &kp D  &kp V        &kp M    &kp H  &kp COMMA        &kp DOT  &kp FSLH       &kp ENTER
+                                                     &kp LGUI         &mo 1  &kp SPACE    &kp RET  &mo 2  &kp RALT
             >;
 
-//
-//            bindings = <
-//&kp ESCAPE     &kp Q                &kp W            &kp E            &kp R  &kp T             &kp Y      &kp U      &kp I                 &kp O             &kp P                         &kp BSPC
-//&kp DEL        &HML LEFT_CONTROL A  &HML LEFT_ALT S  &HML LEFT_WIN D  &kp F  &kp G             &kp H      &kp J      &HMR LEFT_GUI K       &HMR RIGHT_ALT L  &HMR RIGHT_CONTROL SEMICOLON  &kp SQT
-//&kp BACKSLASH  &kp Z                &kp X            &kp C            &kp V  &kp B             &kp N      &kp M      &kp COMMA             &kp DOT           &kp FSLH                      &kp ENTER
-//                                                     &HML PLUS EQUAL  &mo 1  &kp LEFT_SHIFT    &kp SPACE  &lt 2 TAB  &HMR LS(MINUS) MINUS
-//            >;
+            //
+            //            bindings = <
+            //&kp ESCAPE     &kp Q                &kp W            &kp E            &kp R  &kp T             &kp Y      &kp U      &kp I                 &kp O             &kp P                         &kp BSPC
+            //&kp DEL        &HML LEFT_CONTROL A  &HML LEFT_ALT S  &HML LEFT_WIN D  &kp F  &kp G             &kp H      &kp J      &HMR LEFT_GUI K       &HMR RIGHT_ALT L  &HMR RIGHT_CONTROL SEMICOLON  &kp SQT
+            //&kp BACKSLASH  &kp Z                &kp X            &kp C            &kp V  &kp B             &kp N      &kp M      &kp COMMA             &kp DOT           &kp FSLH                      &kp ENTER
+            //                                                     &HML PLUS EQUAL  &mo 1  &kp LEFT_SHIFT    &kp SPACE  &lt 2 TAB  &HMR LS(MINUS) MINUS
+            //            >;
         };
 
-        lower_layer {
+        nav_layer {
             // -----------------------------------------------------------------------------------------
             // |  TAB |  1  |  2  |  3  |  4  |  5  |   |  6  |  7  |  8  |  9  |  0  | BKSP |
             // | BTCLR| BT1 | BT2 | BT3 | BT4 | BT5 |   | LFT | DWN |  UP | RGT |     |      |
@@ -73,9 +124,9 @@
 
             display-name = "Lower";
             bindings = <
-&kp KP_MULTIPLY       &kp MINUS      &mt AMPERSAND N7          &mt ASTERISK N8       &mt LEFT_PARENTHESIS N9  &kp PLUS          &kp LS(LEFT_BRACKET)      &kp LS(RIGHT_BRACKET)  &kp LEFT_PARENTHESIS  &kp RIGHT_PARENTHESIS  &kp LEFT_BRACKET  &kp RIGHT_BRACKET
-&kp SLASH             &kp BACKSPACE  &mt DOLLAR NUMBER_4       &mt PERCENT N5        &mt CARET NUMBER_6       &kp ENTER         &kp LS(LC(LG(LEFT_ALT)))  &kp LEFT               &kp DOWN              &kp UP_ARROW           &kp RIGHT_ARROW   &kp DOLLAR
-&kp NON_US_BACKSLASH  &kp N0         &mt EXCLAMATION NUMBER_1  &mt AT_SIGN NUMBER_2  &mt HASH NUMBER_3        &kp PERIOD        &kp LA(LS(MINUS))         &kp LS(LC(TAB))        &kp PAGE_DOWN         &kp PG_UP              &kp LC(TAB)       &kp TILDE
+&kp KP_MULTIPLY       &kp MINUS      &mt AMPERSAND N7          &mt ASTERISK N8       &mt LEFT_PARENTHESIS N9  &kp PLUS          &kp HOME                  &select_word_previous  &select_all_left   &select_all_right  &select_word_next  &kp END
+&kp SLASH             &kp BACKSPACE  &mt DOLLAR NUMBER_4       &mt PERCENT N5        &mt CARET NUMBER_6       &kp ENTER         &kp LS(LC(LG(LEFT_ALT)))  &kp LEFT               &kp DOWN           &kp UP_ARROW       &kp RIGHT_ARROW    &select_line
+&kp NON_US_BACKSLASH  &kp N0         &mt EXCLAMATION NUMBER_1  &mt AT_SIGN NUMBER_2  &mt HASH NUMBER_3        &kp PERIOD        &kp LA(LS(MINUS))         &kp LS(LC(TAB))        &kp PAGE_DOWN      &kp PG_UP          &kp LC(TAB)        &new_line
                                                                &kp TILDE             &kp SPACE                &kp LEFT_SHIFT    &kp SPACE                 &kp LG(LS(LEFT))       &kp LS(LG(RIGHT))
             >;
         };
